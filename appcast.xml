@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>FrameCast</title>
+    <link>https://teseife.github.io/FrameCast-releases/appcast.xml</link>
+    <description>Updates for FrameCast</description>
+    <language>en</language>
+    <!-- Sparkle's generate_appcast adds an <item> here for each release. -->
+  </channel>
+</rss>
