@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FrameCast Privacy Policy</title>
+  <meta name="description" content="What the FrameCast Mac app sends, what stays on your Mac, and how to turn it off.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f5f4f0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+  <script>
+    // Apply a saved theme before the page paints, so there's no flash.
+    try {
+      var t = localStorage.getItem("framecast-theme");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/icon-180.png">
+  <style>
+    /* The same look as the FrameCast page on sidwelllabs.com. */
+    :root {
+      color-scheme: light;
+      --paper: #f5f4f0;
+      --ink: #141414;
+      --ink-2: #55534e;
+      --rule: #dcdad3;
+      --chip: #e9e7e1;
+
+      --wrap: 1120px;
+      --gutter: clamp(16px, 4vw, 40px);
+      --pad-l: max(var(--gutter), env(safe-area-inset-left));
+      --pad-r: max(var(--gutter), env(safe-area-inset-right));
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --paper: #121212;
+        --ink: #f2f1ed;
+        --ink-2: #a3a19a;
+        --rule: #2d2c2a;
+        --chip: #232321;
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #121212;
+      --ink: #f2f1ed;
+      --ink-2: #a3a19a;
+      --rule: #2d2c2a;
+      --chip: #232321;
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 400 18px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-wrap: break-word;
+    }
+    a { color: inherit; text-underline-offset: 3px; }
+    img, svg { display: block; max-width: 100%; }
+    code { font: 0.86em/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    /* Top bar */
+    .top {
+      max-width: var(--wrap);
+      margin: 0 auto;
+      padding: max(16px, env(safe-area-inset-top)) var(--pad-r) 16px var(--pad-l);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      min-height: 44px;
+      text-decoration: none; font-weight: 600; font-size: 17px;
+    }
+    .brand img { border-radius: 7px; }
+
+    /* Theme switch: three icon buttons in a small pill */
+    .theme {
+      display: flex;
+      padding: 3px;
+      gap: 2px;
+      background: var(--chip);
+      border-radius: 999px;
+    }
+    .theme button {
+      display: grid; place-items: center;
+      width: 34px; height: 34px;
+      padding: 0;
+      color: var(--ink-2);
+      background: transparent;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .theme button:hover { color: var(--ink); }
+    .theme button[aria-checked="true"] { color: var(--ink); background: var(--paper); box-shadow: 0 0 0 1px var(--rule); }
+    .theme button:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+    .theme svg {
+      width: 18px; height: 18px;
+      fill: none; stroke: currentColor; stroke-width: 1.6;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    main {
+      max-width: var(--wrap);
+      margin: 0 auto;
+      padding: 0 var(--pad-r) 0 var(--pad-l);
+    }
+
+    /* Intro */
+    .intro { padding: clamp(32px, 7vw, 80px) 0 0; }
+    h1 {
+      margin: 0;
+      max-width: 16ch;
+      text-wrap: balance;
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.03;
+      letter-spacing: -0.035em;
+      font-weight: 700;
+    }
+    .updated { margin: 16px 0 0; font-size: 16px; color: var(--ink-2); }
+    .lede {
+      margin: 24px 0 0;
+      max-width: 34em;
+      font-size: clamp(18px, 2vw, 22px);
+      color: var(--ink-2);
+    }
+
+    /* Sections: heading in a narrow left column, content on the right from tablet width up */
+    .block {
+      margin-top: clamp(56px, 8vw, 96px);
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+    @media (min-width: 760px) {
+      .block { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px 40px; }
+      .block > h2 { grid-column: 1; }
+      .block > :not(h2) { grid-column: 2; }
+    }
+    h2 {
+      margin: 0;
+      text-wrap: balance;
+      font-size: clamp(24px, 2.6vw, 30px);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 650;
+    }
+    h3 { margin: 28px 0 10px; font-size: 18px; font-weight: 600; }
+    .prose { margin: 0; max-width: 36em; }
+    .prose > :first-child { margin-top: 0; }
+    .prose p { margin: 0 0 16px; }
+    .prose ul { margin: 0 0 16px; padding-left: 1.3em; }
+    .prose li { margin-bottom: 8px; padding-left: 4px; }
+    .prose > :last-child { margin-bottom: 0; }
+    .short .prose p { font-size: clamp(19px, 2.2vw, 24px); line-height: 1.4; }
+    .path { white-space: nowrap; }
+
+    /* Facts: the event list */
+    .facts { margin: 0 0 16px; }
+    .facts div {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .facts div:first-child { padding-top: 0; }
+    @media (min-width: 600px) {
+      .facts div { grid-template-columns: 11.5em minmax(0, 1fr); gap: 20px; }
+    }
+    .facts dt { font-weight: 600; }
+    .facts dd { margin: 0; color: var(--ink-2); }
+
+    /* Footer */
+    .foot {
+      max-width: var(--wrap);
+      margin: clamp(64px, 10vw, 128px) auto 0;
+      padding: 20px var(--pad-r) max(32px, env(safe-area-inset-bottom)) var(--pad-l);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4px 16px;
+      font-size: 15px;
+      color: var(--ink-2);
+      border-top: 1px solid var(--rule);
+    }
+    .foot a { display: inline-flex; align-items: center; min-height: 44px; }
+
+    /* Phones: more room around everything, calmer type */
+    @media (max-width: 600px) {
+      :root { --gutter: 24px; }
+      .top { padding-top: max(14px, env(safe-area-inset-top)); padding-bottom: 8px; }
+      .theme { padding: 2px; }
+      .theme button { width: 32px; height: 32px; }
+      .theme svg { width: 17px; height: 17px; }
+      body { font-size: 17px; line-height: 1.6; }
+      .intro { padding-top: 40px; }
+      h1 { font-size: clamp(36px, 10.4vw, 44px); line-height: 1.06; letter-spacing: -0.03em; }
+      .lede { margin-top: 20px; font-size: 17px; line-height: 1.6; }
+      .block { margin-top: 72px; padding-top: 32px; gap: 20px; }
+      h2 { font-size: 25px; line-height: 1.2; }
+      .short .prose p { font-size: 19px; line-height: 1.5; }
+      .prose p { margin-bottom: 18px; }
+      .facts div { padding: 16px 0; gap: 4px; }
+      .facts dd { line-height: 1.5; }
+      .foot { margin-top: 88px; padding-top: 24px; flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="https://github.com/Teseife/FrameCast-releases" aria-label="FrameCast">
+      <img src="assets/icon-180.png" alt="" width="28" height="28">
+      <span>FrameCast</span>
+    </a>
+    <div class="theme" role="radiogroup" aria-label="Theme">
+      <button type="button" role="radio" data-theme-choice="light" aria-label="Light" title="Light">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2.2M10 16v2.2M1.8 10H4M16 10h2.2M4.2 4.2l1.6 1.6M14.2 14.2l1.6 1.6M4.2 15.8l1.6-1.6M14.2 5.8l1.6-1.6"/></svg>
+      </button>
+      <button type="button" role="radio" data-theme-choice="system" aria-label="System" title="System">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="10" rx="1.6"/><path d="M7 17h6M10 13.5V17"/></svg>
+      </button>
+      <button type="button" role="radio" data-theme-choice="dark" aria-label="Dark" title="Dark">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.2A7 7 0 0 1 7.8 3.5a7 7 0 1 0 8.7 8.7z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>FrameCast Privacy Policy</h1>
+      <p class="updated">Last updated November 14, 2026</p>
+      <p class="lede">FrameCast is a Mac app for recording an iPhone or iPad in a device frame. It is made by Sidwell Labs (“we”). This policy covers the FrameCast app only. The sidwelllabs.com website is separate and is not covered here.</p>
+    </section>
+
+    <section class="block short">
+      <h2>The short version</h2>
+      <div class="prose">
+        <p>Your recordings, screenshots, file names and device names never leave your Mac. FrameCast has no accounts and no sign-in.</p>
+        <p>FrameCast sends two kinds of anonymous data: <a href="#crash-reports">crash reports</a> and <a href="#usage-counts">usage counts</a>. Both are on by default. You can turn off each one in <span class="path">FrameCast &gt; Settings &gt; Privacy</span>, and it stops straight away.</p>
+        <p>We don’t sell this data or use it for advertising.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>What stays on your Mac</h2>
+      <div class="prose">
+        <p>FrameCast does all of its work on your Mac. It never uploads:</p>
+        <ul>
+          <li>your recordings, screenshots or the images you drop in</li>
+          <li>what is on your iPhone or iPad screen, or its sound</li>
+          <li>file names, folder names or paths</li>
+          <li>the names of your iPhone, iPad or Mac</li>
+          <li>your settings or custom device models</li>
+        </ul>
+        <p>FrameCast asks macOS for Camera access (to show an iPhone or iPad connected by USB), Microphone access (to record the device’s sound) and Screen Recording access (for iPhone Mirroring). It uses these only to show and record your device on your Mac.</p>
+      </div>
+    </section>
+
+    <section class="block" id="crash-reports">
+      <h2>Crash reports</h2>
+      <div class="prose">
+        <p>If FrameCast crashes or stops responding, it sends a report of where it happened so we can fix it. Reports go to <a href="https://sentry.io/privacy/">Sentry</a>, which stores them for us in the United States.</p>
+        <p>A crash report contains:</p>
+        <ul>
+          <li>where in FrameCast’s code the problem happened (the stack trace), and a short list of what the app did just before</li>
+          <li>the FrameCast version and build</li>
+          <li>the macOS version</li>
+          <li>your Mac’s model (such as <code>Mac16,8</code>) and processor type</li>
+          <li>memory figures, such as how much memory was free</li>
+          <li>your language and region setting</li>
+          <li>a random ID made on your Mac when FrameCast was installed, so reports from the same Mac can be grouped</li>
+        </ul>
+        <p>A crash report does not contain your recordings, screenshots, file names, device names, IP address or location. Your home folder is replaced with <code>~</code> in any path in the report, which removes your account name. FrameCast sends a placeholder instead of your IP address, and IP address storage is turned off in our Sentry project.</p>
+        <p>To stop sending crash reports, turn off <strong>Send crash reports</strong> in <span class="path">FrameCast &gt; Settings &gt; Privacy</span>. A report saved before you turned it off is thrown away, not sent.</p>
+      </div>
+    </section>
+
+    <section class="block" id="usage-counts">
+      <h2>Usage counts</h2>
+      <div class="prose">
+        <p>FrameCast counts how often its main features are used, so we know what to improve. The counts go to <a href="https://posthog.com/privacy">PostHog</a>, which stores them for us in the United States. This is the complete list of what FrameCast sends:</p>
+        <dl class="facts">
+          <div><dt><code>app_opened</code></dt><dd>Each time FrameCast opens. Nothing else.</dd></div>
+          <div><dt><code>app_installed</code></dt><dd>The first time FrameCast opens on a Mac. Nothing else.</dd></div>
+          <div><dt><code>app_updated</code></dt><dd>The first time FrameCast opens after an update, with <code>previous_version</code>.</dd></div>
+          <div><dt><code>onboarding_finished</code></dt><dd>The welcome tour ends, with <code>skipped</code>: whether Skip was pressed.</dd></div>
+          <div><dt><code>device_connected</code></dt><dd>The first picture arrives from a device, with <code>source</code> (usb or mirroring) and <code>kind</code> (iphone or ipad).</dd></div>
+          <div><dt><code>recording_started</code></dt><dd>A recording starts, with <code>format</code> (mov, mp4, webm or gif), <code>area</code> (device or view), <code>source</code> and <code>kind</code>.</dd></div>
+          <div><dt><code>recording_saved</code></dt><dd>A recording is saved, with the same details plus <code>duration</code> as a range such as 10–30s, never the exact length.</dd></div>
+          <div><dt><code>recording_discarded</code></dt><dd>The save panel is cancelled, with the same details as <code>recording_started</code>.</dd></div>
+          <div><dt><code>recording_failed</code></dt><dd>A recording can’t be made or saved, with <code>stage</code> (start, finish, convert or save) and the <code>recording_started</code> details when known. Never the error message, which can contain file paths.</dd></div>
+          <div><dt><code>screenshot_exported</code></dt><dd>A framed screenshot is saved or copied, with <code>action</code> (save or copy) and <code>from</code> (live or image).</dd></div>
+        </dl>
+        <p>Each event also carries:</p>
+        <ul>
+          <li>a random ID made on your Mac, and a random ID for the current session. These aren’t linked to your name, email or any account, and no profile of you is kept.</li>
+          <li>the FrameCast version and build</li>
+          <li>the macOS version</li>
+          <li>your Mac’s model (such as <code>Mac16,8</code>) and type (such as “Mac”)</li>
+          <li>your screen size</li>
+          <li>your language and time zone</li>
+          <li>whether your Mac is on Wi-Fi</li>
+        </ul>
+        <p>FrameCast sends a placeholder instead of your IP address, and turns off PostHog’s lookup of your location. It doesn’t record clicks, screens or sessions.</p>
+        <p>To stop sending usage counts, turn off <strong>Share anonymous usage data</strong> in <span class="path">FrameCast &gt; Settings &gt; Privacy</span>.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Update checks</h2>
+      <div class="prose">
+        <p>About once a day, FrameCast checks for a new version by downloading <code>teseife.github.io/FrameCast-releases/appcast.xml</code>, and updates are downloaded from GitHub. These are ordinary web requests, so GitHub sees your IP address, as any website does (see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub’s privacy statement</a>). FrameCast doesn’t send anything else with them. You can turn off automatic checks in <span class="path">FrameCast &gt; Settings &gt; Updates</span>.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Feedback</h2>
+      <div class="prose">
+        <p><strong>Send Feedback</strong> opens the FrameCast feedback board at <a href="https://framecast.userjot.com/">framecast.userjot.com</a> in your web browser. FrameCast doesn’t send anything to it. Whatever you post there is covered by UserJot’s own terms and privacy policy.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>How long we keep it</h2>
+      <div class="prose">
+        <p>We keep crash reports and usage counts only as long as they help us fix and improve FrameCast. Sentry and PostHog delete them after their retention periods for our plans.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Children</h2>
+      <div class="prose">
+        <p>FrameCast isn’t made for children under 13, and we don’t knowingly collect information from them.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Changes</h2>
+      <div class="prose">
+        <p>If what FrameCast sends changes, we’ll update this page and the date at the top before the new version ships, and say so in the release notes.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Contact</h2>
+      <div class="prose">
+        <p>For questions about this policy, or to ask us to delete data, email <a href="mailto:privacy@sidwelllabs.com">privacy@sidwelllabs.com</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© 2026 Sidwell Labs. FrameCast is an independent app, not made by Apple.</span>
+    <a href="https://framecast.userjot.com/">Send feedback</a>
+  </footer>
+
+  <script>
+    (() => {
+      // Theme: light, dark, or follow the system (the default). Saved per browser.
+      const KEY = "framecast-theme";
+      const root = document.documentElement;
+      const buttons = document.querySelectorAll("[data-theme-choice]");
+      const colors = document.querySelectorAll('meta[name="theme-color"]');
+      const read = () => { try { return localStorage.getItem(KEY) || "system"; } catch { return "system"; } };
+      const apply = (choice) => {
+        if (choice === "light" || choice === "dark") root.dataset.theme = choice;
+        else delete root.dataset.theme;
+        buttons.forEach((b) => b.setAttribute("aria-checked", String(b.dataset.themeChoice === choice)));
+        colors.forEach((m) => {
+          const mode = choice === "system" ? (m.media.includes("dark") ? "dark" : "light") : choice;
+          m.content = mode === "dark" ? "#121212" : "#f5f4f0";
+        });
+      };
+      apply(read());
+      buttons.forEach((b) => b.addEventListener("click", () => {
+        const choice = b.dataset.themeChoice;
+        try {
+          if (choice === "system") localStorage.removeItem(KEY);
+          else localStorage.setItem(KEY, choice);
+        } catch {}
+        apply(choice);
+      }));
+      // Arrow keys move between the three options, like a native radio group.
+      document.querySelector(".theme").addEventListener("keydown", (e) => {
+        if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) return;
+        const list = [...buttons];
+        const i = list.indexOf(document.activeElement);
+        if (i < 0) return;
+        e.preventDefault();
+        const next = list[(i + (e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 1) + list.length) % list.length];
+        next.focus();
+        next.click();
+      });
+    })();
+  </script>
+</body>
+</html>
