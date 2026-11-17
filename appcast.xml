@@ -1,10 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
-  <channel>
-    <title>FrameCast</title>
-    <link>https://teseife.github.io/FrameCast-releases/appcast.xml</link>
-    <description>Updates for FrameCast</description>
-    <language>en</language>
-    <!-- Sparkle's generate_appcast adds an <item> here for each release. -->
-  </channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>FrameCast</title>
+        <link>https://teseife.github.io/FrameCast-releases/appcast.xml</link>
+        <description>Updates for FrameCast</description>
+        <language>en</language>
+        <!-- Sparkle's generate_appcast adds an <item> here for each release. -->
+        <item>
+            <title>1.0.0</title>
+            <pubDate>Mon, 16 Nov 2026 19:03:17 -0500</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/Teseife/FrameCast-releases/releases/download/v1.0.0/FrameCast-1.0.0.dmg" length="22424747" type="application/octet-stream" sparkle:edSignature="Z98fqdIk4GAPKl5iWqaQTAXPDZZofKhIoVJ+rzTUYspIw1N13h6jk9qDO4X36yDJwUVx3+v6cM48Fp0IgRn3Ag=="/>
+        </item>
+    </channel>
 </rss>
